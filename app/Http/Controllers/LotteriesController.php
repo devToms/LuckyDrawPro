@@ -7,11 +7,9 @@ use App\Models\Lotteries;
 
 class LotteriesController extends Controller
 {
-    private LuckyNumberGeneratorService $luckyNumberGeneratorService;
 
-    public function __construct(LuckyNumberGeneratorService $luckyNumberGeneratorService)
+    public function __construct()
     {
-        $this->luckyNumberGeneratorService = $luckyNumberGeneratorService;
     }
 
     public function index()
