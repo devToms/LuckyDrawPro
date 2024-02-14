@@ -9,6 +9,8 @@ class lotteries extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['name', 'price', 'ticket_price'];
+
     public function draws()
     {
         return $this->hasMany(Draw::class);

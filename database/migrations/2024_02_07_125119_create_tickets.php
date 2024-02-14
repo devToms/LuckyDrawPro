@@ -14,9 +14,11 @@ return new class extends Migration
         Schema::create('tickets', function (Blueprint $table) {
           $table->id();
           $table->unsignedBigInteger('draw_id');
+          $table->unsignedBigInteger('user_id');
           $table->timestamp('bought_date');
           $table->unsignedInteger('number');
           $table->foreign('draw_id')->references('id')->on('draws')->onDelete('cascade')->onUpdate('cascade');
+          $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
