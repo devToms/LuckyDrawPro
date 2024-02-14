@@ -13,4 +13,9 @@ class Tickets extends Model
     {
         return $this->belongsTo(Draw::class);
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
