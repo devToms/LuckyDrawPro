@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LotteriesController;
+use App\Http\Controllers\Auth\AuthController;
 
 
 
@@ -21,3 +22,12 @@ Route::get('/', function () {
 });
 
 Route::get('/lotteries', [LotteriesController::class, 'index']);
+
+Route::controller(AuthController::class)->group(function() {
+    Route::get('/register', 'register')->name('register');
+    Route::post('/store', 'store')->name('store');
+    Route::get('/login', 'login')->name('login');
+    Route::post('/authenticate', 'authenticate')->name('authenticate');
+    Route::get('/dashboard', 'dashboard')->name('dashboard');
+    Route::post('/logout', 'logout')->name('logout');
+});
