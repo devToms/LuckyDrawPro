@@ -2,5 +2,5 @@
 
 interface NumberGeneratorInterface
 {
-    public function generate();
+    public function generate(): int;
 }

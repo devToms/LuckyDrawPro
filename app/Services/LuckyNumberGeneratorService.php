@@ -2,11 +2,13 @@
 
 namespace App\Services;
 
-class LuckyNumberGeneratorService
+use App\Services\NumberGeneratorInterface;
+
+class LuckyNumberGeneratorService implements NumberGeneratorInterface
 {
     public function generate(): int
     {
-        // Generowanie losowej liczby z przedziału 1-49
+        // logic for generating the lucky number for the draw
         return random_int(1, 49);
     }
 }
