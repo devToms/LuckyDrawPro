@@ -4,6 +4,9 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use App\Models\Draws;
+use App\Services\TicketService;
+use App\Services\LuckyNumberGeneratorService;
 
 class Kernel extends ConsoleKernel
 {
@@ -12,7 +15,39 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        // $schedule->command('inspire')->hourly();
+      $schedule->call(function () {
+           \Log::info('Zadanie harmonogramu jest uruchamiane.');
+           // Dodaj resztę kodu związanej z zadaniem harmonogramu tutaj
+           $currentDate = now();
+           $drawsToCheck = Draws::where('draw_date', '<=', $currentDate)
+               ->whereNull('won_number')
+               ->get();
+
+           foreach ($drawsToCheck as $draw) {
+               // Poniżej dodaj kod generowania i zapisywania wygenerowanego losowego numeru
+               $wonNumberGenerator = new LuckyNumberGeneratorService();
+               $wonNumber = $wonNumberGenerator->generate();
+
+               $draw->update(['won_number' => $wonNumber]);
+
+               // Poniżej dodaj kod z TicketService do przypisania nagród użytkownikom
+               // $ticketService = new TicketService();
+               // $ticketService->assignPrizes($draw->id, $wonNumber);
+           }
+       })->everyMinute();
+
+       $schedule->call(function () {
+           $lotteries = Lotteries::all();
+
+           foreach ($lotteries as $lottery) {
+               // Poniżej dodaj kod tworzenia nowego losowania
+               $newDraw = new Draws([
+                   'draw_date' => now()->addDay(), // Przykład - nowe losowanie za 1 dzień
+               ]);
+               $lottery->draws()->save($newDraw);
+           }
+       })->daily();
+
     }
 
     /**

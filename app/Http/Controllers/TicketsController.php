@@ -25,8 +25,8 @@ class TicketsController extends Controller
 
         $drawId = $request->input('draw_id');
 
-        if(!$drawId){
-           throw new \InvalidArgumentException('Identyfikator losowania nie został przekazany.');
+        if(!$drawId) {
+            throw new \InvalidArgumentException('Identyfikator losowania nie został przekazany.');
         }
 
         $response = $this->ticketService->purchaseTicket($userId, $drawId);
