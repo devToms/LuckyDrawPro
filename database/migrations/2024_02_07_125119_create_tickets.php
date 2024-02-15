@@ -17,7 +17,8 @@ return new class extends Migration
           $table->unsignedBigInteger('user_id');
           $table->timestamp('bought_date');
           $table->unsignedInteger('number');
-          $table->foreign('draw_id')->references('id')->on('draws')->onDelete('cascade')->onUpdate('cascade');
+          $table->timestamps();
+          $table->foreign('draw_id')->references('id')->on('draws');
           $table->foreign('user_id')->references('id')->on('users');
         });
     }

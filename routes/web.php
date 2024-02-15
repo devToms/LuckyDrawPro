@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LotteriesController;
+use App\Http\Controllers\TicketsController;
 use App\Http\Controllers\Auth\AuthController;
 
 
@@ -22,6 +23,8 @@ Route::get('/', function () {
 });
 
 Route::get('/lotteries', [LotteriesController::class, 'index']);
+//Route::post('/tickets/purchase', [TicketsController::class, 'purchaseTicket']);
+Route::post('/tickets/purchase', [TicketsController::class, 'purchaseTicket'])->name('tickets.purchase');
 
 Route::controller(AuthController::class)->group(function() {
     Route::get('/register', 'register')->name('register');

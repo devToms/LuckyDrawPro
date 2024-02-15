@@ -1,4 +1,4 @@
-@extends('auth.layouts')
+@extends('layouts')
 
 @section('content')
 
@@ -14,11 +14,11 @@
                 @else
                     <div class="alert alert-success">
                         You are logged in!
-                    </div>       
-                @endif                
+                    </div>
+                @endif
             </div>
         </div>
-    </div>    
+    </div>
 </div>
-    
+
 @endsection

@@ -47,7 +47,7 @@
     </nav>
 
     <div class="container">
-        <h3 class="text-center mt-3 mb-3">Dashboard</h3>
+        <h3 class="text-center mt-3 mb-3"></h3>
         @yield('content')
         <div class="row justify-content-center text-center mt-3">
             <div class="col-md-12">
