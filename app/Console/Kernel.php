@@ -15,38 +15,40 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-      $schedule->call(function () {
-           \Log::info('Zadanie harmonogramu jest uruchamiane.');
-           // Dodaj resztę kodu związanej z zadaniem harmonogramu tutaj
-           $currentDate = now();
-           $drawsToCheck = Draws::where('draw_date', '<=', $currentDate)
-               ->whereNull('won_number')
-               ->get();
+        $schedule->call(function () {
+            \Log::info('Zadanie harmonogramu jest uruchamiane.');
+            //Dodaj resztę kodu związanej z zadaniem harmonogramu tutaj
+            $currentDate = '2024-02-15 16:26:00';
+            $drawsToCheck = Draws::where('draw_date', '<=', $currentDate)
+                ->whereNull('won_number')
+                ->get();
 
-           foreach ($drawsToCheck as $draw) {
-               // Poniżej dodaj kod generowania i zapisywania wygenerowanego losowego numeru
-               $wonNumberGenerator = new LuckyNumberGeneratorService();
-               $wonNumber = $wonNumberGenerator->generate();
+            foreach ($drawsToCheck as $draw) {
+                // Poniżej dodaj kod generowania i zapisywania wygenerowanego losowego numeru
+                $wonNumberGenerator = new LuckyNumberGeneratorService();
+                $wonNumber = $wonNumberGenerator->generate();
 
-               $draw->update(['won_number' => $wonNumber]);
+                $draw->update(['won_number' => $wonNumber]);
 
-               // Poniżej dodaj kod z TicketService do przypisania nagród użytkownikom
-               // $ticketService = new TicketService();
-               // $ticketService->assignPrizes($draw->id, $wonNumber);
-           }
-       })->everyMinute();
+                //Poniżej dodaj kod z TicketService do przypisania nagród użytkownikom
+                // $ticketService = new TicketService();
+                // $ticketService->assignPrizes($draw->id, $wonNumber);
 
-       $schedule->call(function () {
-           $lotteries = Lotteries::all();
+                $lotteries = Lotteries::all();
 
-           foreach ($lotteries as $lottery) {
-               // Poniżej dodaj kod tworzenia nowego losowania
-               $newDraw = new Draws([
-                   'draw_date' => now()->addDay(), // Przykład - nowe losowanie za 1 dzień
-               ]);
-               $lottery->draws()->save($newDraw);
-           }
-       })->daily();
+                foreach ($lotteries as $lottery) {
+                    // Poniżej dodaj kod tworzenia nowego losowania
+                    $newDraw = new Draws([
+                        'draw_date' => '2024-02-16 16:26:00', // Przykład - nowe losowanie za 1 dzień
+                    ]);
+                    $lottery->draws()->save($newDraw);
+                }
+            }
+        })->everyMinute();
+
+        // $schedule->call(function () {
+        //
+        // })->daily();
 
     }
 

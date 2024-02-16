@@ -6,10 +6,14 @@ use App\Models\Draws;
 
 class DrawsService
 {
-    public function drawsList()
+    public function getActiveDraws()
     {
-        return  Draws::with('lotteries')
-          ->where('draw_date', '>', now())
-          ->get();
+        return Draws::with('lotteries')
+        ->whereNull('won_number')
+        ->where(function ($query) {
+            $query->where('draw_date', '>', now())
+                  ->orWhereNull('draw_date');
+        })
+        ->get();
     }
 }
