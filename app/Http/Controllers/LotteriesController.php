@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Lotteries;
-use Illuminate\Support\Carbon;
 use App\Services\DrawsService;
 
 class LotteriesController extends Controller
