@@ -20,7 +20,7 @@ class TicketService
     {
 
         if (!is_numeric($userId) || !is_numeric($drawId)) {
-            return response()->json(['message' => 'Invalid input data.'], 400);
+             return ['error' => 'Invalid input data.'];
         }
 
         try {
@@ -40,7 +40,7 @@ class TicketService
             ]);
             $ticket->save();
 
-            return response()->json(['message' => 'Ticket purchased successfully.']);
+            return ['message' => 'Ticket purchased successfully.'];
         } catch (\Exception $e) {
             return response()->json(['message' => 'An error occurred while purchasing the ticket.'], 500);
         }
