@@ -31,6 +31,6 @@ class TicketsController extends Controller
 
         $response = $this->ticketService->purchaseTicket($userId, $drawId);
 
-         return response()->json($response);
+        return response()->json($response);
     }
 }
