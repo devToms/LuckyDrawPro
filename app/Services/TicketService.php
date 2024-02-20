@@ -11,29 +11,43 @@ class TicketService
 {
     protected $numberGenerator;
 
-    public function __construct(NumberGeneratorInterface $ticketNumberGenerator)
+    public function __construct(NumberGeneratorInterface $numberGenerator)
     {
-        $this->ticketNumberGenerator = $ticketNumberGenerator;
+        $this->nmberGenerator = $numberGenerator;
     }
 
     public function purchaseTicket($userId, $drawId)
     {
-        $existingTicket = Tickets::where('user_id', $userId)
-            ->where('draw_id', $drawId)
-            ->first();
 
-        if ($existingTicket) {
-            return response()->json(['message' => 'Posiadasz już bilet do tej loterii.']);
+        if (!is_numeric($userId) || !is_numeric($drawId)) {
+            return response()->json(['message' => 'Invalid input data.'], 400);
         }
 
-        $ticket = new Tickets([
-            'user_id' => $userId,
-            'draw_id' => $drawId,
-            'number' => $this->ticketNumberGenerator->generate(),
-            'bought_date' => now(),
-        ]);
-        $ticket->save();
+        try {
+            $existingTicket = Tickets::where('user_id', $userId)
+                ->where('draw_id', $drawId)
+                ->first();
 
-        return response()->json(['message' => 'Bilet zakupiony pomyślnie.']);
+            if ($existingTicket) {
+                return response()->json(['message' => 'You already have a ticket for this lottery.']);
+            }
+
+            $ticket = new Tickets([
+                'user_id' => $userId,
+                'draw_id' => $drawId,
+                'number' => $this->numberGenerator->generate(),
+                'bought_date' => now(),
+            ]);
+            $ticket->save();
+
+            return response()->json(['message' => 'Ticket purchased successfully.']);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'An error occurred while purchasing the ticket.'], 500);
+        }
+    }
+
+    public function assignPrizes($drawId, $wonNumber)
+    {
+        //
     }
 }
