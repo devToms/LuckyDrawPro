@@ -42,7 +42,7 @@ class TicketService
 
             return ['message' => 'Ticket purchased successfully.'];
         } catch (\Exception $e) {
-            return response()->json(['message' => 'An error occurred while purchasing the ticket.'], 500);
+            return [['message' => 'An error occurred while purchasing the ticket.'], 500];
         }
     }
 
