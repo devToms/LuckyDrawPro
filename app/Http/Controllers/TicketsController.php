@@ -20,13 +20,13 @@ class TicketsController extends Controller
         if (Auth::check()) {
             $userId = auth()->user()->id;
         } else {
-            return response()->json(['error' => 'Użytkownik nie jest zalogowany.'], 401);
+            return response()->json(['error' => 'The user is not logged in.'], 401);
         }
 
         $drawId = $request->input('draw_id');
 
         if(!$drawId) {
-            throw new \InvalidArgumentException('Identyfikator losowania nie został przekazany.');
+            throw new \InvalidArgumentException('No draw id provided.');
         }
 
         $response = $this->ticketService->purchaseTicket($userId, $drawId);
