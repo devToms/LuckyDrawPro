@@ -14,7 +14,7 @@ class LotteriesController extends Controller
 
     public function index()
     {
-        $draws = $this->drawsService->drawsList();
+        $draws = $this->drawsService->getActiveDraws();
         return view('lotteries.index', ['draws' => $draws]);
     }
 }
