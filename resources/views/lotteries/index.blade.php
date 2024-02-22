@@ -19,6 +19,7 @@
     @endif
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> -->
     <script>
         $(document).ready(function () {
             $('.buy-ticket').click(function () {
@@ -26,6 +27,7 @@
                 var csrfToken = $('meta[name="csrf-token"]').attr('content');
 
                 $.ajax({
+                    dataType:"json",
                     type: 'POST',
                     url: '/tickets/purchase',
                     data: { draw_id: drawId },
@@ -33,16 +35,24 @@
                         'X-CSRF-Token': csrfToken
                     },
                     success: function (response) {
+                        console.log(JSON.stringify(response));
                         alert(response.message);
                     },
                     error: function (error) {
-                      if (error.status === 401) {
-                          alert('Użytkownik nie jest zalogowany. Zaloguj się, aby zakupić bilet.');
-                          // Przekieruj na stronę logowania lub wykonaj inne akcje dla niezalogowanego użytkownika
-                      } else {
-                          console.log(error);
-                      }
-                    }
+
+                      console.error('Error:', error);
+
+               if (error.responseJSON && error.responseJSON.original && error.responseJSON.original.message) {
+                   // Obsługa sytuacji, gdy użytkownik już ma bilet dla danej loterii
+                   alert('Uwaga: ' + error.responseJSON.original.message);
+               } else if (error.status === 401) {
+                   alert('Użytkownik nie jest zalogowany. Zaloguj się, aby zakupić bilet.');
+                   // Przekieruj na stronę logowania lub wykonaj inne akcje dla niezalogowanego użytkownika
+               } else {
+                   console.log(error.responseText); // Dodane w celu wyświetlenia pełnej odpowiedzi w konsoli
+                   alert('Wystąpił błąd podczas zakupu biletu. Spróbuj ponownie.');
+               }
+           }
                 });
             });
         });

@@ -5,15 +5,16 @@ namespace App\Services;
 use App\Models\Tickets;
 use App\Models\Draws;
 use App\Services\NumberGeneratorInterface;
+use App\Services\TicketNumberGeneratorService;
 use Illuminate\Support\Facades\Auth;
 
 class TicketService
 {
     protected $numberGenerator;
 
-    public function __construct(NumberGeneratorInterface $numberGenerator)
+    public function __construct(TicketNumberGeneratorService $numberGenerator)
     {
-        $this->nmberGenerator = $numberGenerator;
+        $this->numberGenerator = $numberGenerator;
     }
 
     public function purchaseTicket($userId, $drawId)
@@ -29,7 +30,7 @@ class TicketService
                 ->first();
 
             if ($existingTicket) {
-                return response()->json(['message' => 'You already have a ticket for this lottery.']);
+                return ['message' => 'You already have a ticket for this lottery.'];
             }
 
             $ticket = new Tickets([
