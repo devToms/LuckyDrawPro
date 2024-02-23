@@ -21,7 +21,7 @@ class TicketService
     {
 
         if (!is_numeric($userId) || !is_numeric($drawId)) {
-             return ['error' => 'Invalid input data.'];
+            return ['error' => 'Invalid input data.'];
         }
 
         try {
@@ -39,7 +39,9 @@ class TicketService
                 'number' => $this->numberGenerator->generate(),
                 'bought_date' => now(),
             ]);
+
             $ticket->save();
+
 
             return ['message' => 'Ticket purchased successfully.'];
         } catch (\Exception $e) {

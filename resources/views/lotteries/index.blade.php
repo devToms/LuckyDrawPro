@@ -39,20 +39,14 @@
                         alert(response.message);
                     },
                     error: function (error) {
-
-                      console.error('Error:', error);
-
-               if (error.responseJSON && error.responseJSON.original && error.responseJSON.original.message) {
-                   // Obsługa sytuacji, gdy użytkownik już ma bilet dla danej loterii
-                   alert('Uwaga: ' + error.responseJSON.original.message);
-               } else if (error.status === 401) {
-                   alert('Użytkownik nie jest zalogowany. Zaloguj się, aby zakupić bilet.');
-                   // Przekieruj na stronę logowania lub wykonaj inne akcje dla niezalogowanego użytkownika
-               } else {
-                   console.log(error.responseText); // Dodane w celu wyświetlenia pełnej odpowiedzi w konsoli
-                   alert('Wystąpił błąd podczas zakupu biletu. Spróbuj ponownie.');
-               }
-           }
+                      alert(error);
+                      if (error.status === 401) {
+                          alert('Użytkownik nie jest zalogowany. Zaloguj się, aby zakupić bilet.');
+                          // Przekieruj na stronę logowania lub wykonaj inne akcje dla niezalogowanego użytkownika
+                      } else {
+                          console.log(error);
+                      }
+                    }
                 });
             });
         });

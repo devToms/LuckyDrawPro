@@ -5,7 +5,7 @@ use App\Http\Controllers\LotteriesController;
 use App\Http\Controllers\TicketsController;
 use App\Http\Controllers\Auth\AuthController;
 
-
+use App\Http\Controllers\TestController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +25,9 @@ Route::get('/', function () {
 Route::get('/lotteries', [LotteriesController::class, 'index']);
 //Route::post('/tickets/purchase', [TicketsController::class, 'purchaseTicket']);
 Route::post('/tickets/purchase', [TicketsController::class, 'purchaseTicket'])->name('tickets.purchase');
+Route::post('/tickets/prizes', [TicketsController::class, 'assignPrizes'])->name('tickets.prize');
+
+Route::match(['get', 'post'], '/test', [TestController::class, 'purchaseTicket']);
 
 Route::controller(AuthController::class)->group(function() {
     Route::get('/register', 'register')->name('register');
