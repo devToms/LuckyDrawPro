@@ -26,7 +26,6 @@ class CheckDraws extends Command
     public function handle()
     {
         \Log::info('Zadanie harmonogramu jest uruchamiane.');
-
         $currentDate = now();
 
         $lottery = Lotteries::whereHas('draws', function ($query) use ($currentDate) {
@@ -39,18 +38,17 @@ class CheckDraws extends Command
             $wonNumberGenerator = new LuckyNumberGeneratorService();
             $wonNumber = $wonNumberGenerator->generate();
 
-
             $draw = $lottery->draws()->where('draw_date', '<=', $currentDate)
                 ->whereNull('won_number')
                 ->first();
 
             if ($draw) {
                 $draw->update(['won_number' => $wonNumber]);
-
                 $newDraw = new Draws([
-                    'draw_date' => now()->addDay(2),
+                    'draw_date' => now()->addDay(2)
                 ]);
                 $lottery->draws()->save($newDraw);
             }
+        }
     }
 }
