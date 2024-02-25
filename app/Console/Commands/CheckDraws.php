@@ -82,6 +82,9 @@ class CheckDraws extends Command
 
             if ($draw) {
                 $draw->update(['won_number' => $wonNumber]);
+
+                $this->ticketService->assignPrizes($draw->id, $draw->won_number);
+
                 $newDraw = new Draws([
                     'draw_date' => now()->addDay(2)
                 ]);
