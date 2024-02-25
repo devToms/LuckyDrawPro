@@ -33,9 +33,4 @@ class TicketsController extends Controller
 
         return response()->json($response);
     }
-
-    public function assignPrizes()
-    {
-
-    }
 }

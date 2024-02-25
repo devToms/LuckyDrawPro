@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LotteriesController;
 use App\Http\Controllers\TicketsController;
+use App\Http\Controllers\WinnersController;
 use App\Http\Controllers\Auth\AuthController;
 
 use App\Http\Controllers\TestController;
@@ -28,6 +29,8 @@ Route::post('/tickets/purchase', [TicketsController::class, 'purchaseTicket'])->
 Route::post('/tickets/prizes', [TicketsController::class, 'assignPrizes'])->name('tickets.prize');
 
 Route::match(['get', 'post'], '/test', [TestController::class, 'purchaseTicket']);
+
+Route::get('/lotteries/winners', [WinnersController::class, 'index']);
 
 Route::controller(AuthController::class)->group(function() {
     Route::get('/register', 'register')->name('register');

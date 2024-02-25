@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Tickets;
+use App\Models\WinnersTicket;
 use App\Models\Draws;
 use App\Services\NumberGeneratorInterface;
 use App\Services\TicketNumberGeneratorService;
@@ -51,6 +52,22 @@ class TicketService
 
     public function assignPrizes($drawId, $wonNumber)
     {
-        //
+        try {
+            $winningTicket = Tickets::where('draw_id', $drawId)
+            ->where('number', $wonNumber)
+            ->first();
+
+            if ($winningTicket) {
+                WinnersTicket::create([
+                    'draw_id' => $winningTicket->draw_id,
+                    'user_id' => $winningTicket->user_id,
+                    'ticket_id' => $winningTicket->id,
+                ]);
+            }
+
+            return ['message' => 'Prizes assigned successfully.'];
+        } catch (\Exception $e) {
+            return ['message' => 'An error occurred while assigning prizes.'];
+        }
     }
 }
