@@ -13,16 +13,4 @@ class DrawsController extends Controller
     {
         $this->drawsService = $drawsService;
     }
-
-    public function showWinningDrawsForLotteryName($lotteryName)
-    {
-        $winningDraws = $this->drawsService->getWinningDrawsForLotteryName($lotteryName);
-        return view('draws.winning-draws', ['winningDraws' => $winningDraws]);
-    }
-
-    public function showWinningDrawsForLotteryId($lotteryId)
-    {
-        $winningDraws = $this->drawsService->getWinningDrawsForLotteryId($lotteryId);
-        return view('draws.winning-draws', ['winningDraws' => $winningDraws]);
-    }
 }
