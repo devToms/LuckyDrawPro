@@ -19,18 +19,16 @@ class WinnersController extends Controller
         $winners = $this->winnersDrawsService->getWinners();
         return view('winners.index', ['winners' => $winners]);
     }
-    
+
     public function showWinningDrawsForLotteryName($lotteryName)
     {
         $winningDraws = $this->winnersDrawsService->getWinningDrawsForLotteryName($lotteryName);
-        dd($winningDraws);
-      //  return view('winners.index', ['winningDraws' => $winningDraws]);
+        return view('winners.index', ['winningDraws' => $winningDraws]);
     }
 
     public function showWinningDrawsForLotteryId($lotteryId)
     {
         $winningDraws = $this->winnersDrawsService->getWinningDrawsForLotteryId($lotteryId);
-        dd($winningDraws);
         return view('winners.index', ['winningDraws' => $winningDraws]);
     }
 }
