@@ -23,7 +23,7 @@ class TestController extends Controller
     public function purchaseTicket(Request $request)
     {
         //$currentDate = now();
-        $currentDate = '2024-02-21 17:02:00';
+        $currentDate = '2024-02-23 17:02:00';
 
         // Pobierz loterię, dla której aktualnie trwa sprawdzanie losowań
         $lottery = Lotteries::whereHas('draws', function ($query) use ($currentDate) {

@@ -6,6 +6,7 @@ use Illuminate\Console\Command;
 use App\Models\Draws;
 use App\Models\Lotteries;
 use App\Services\LuckyNumberGeneratorService;
+use App\Services\TicketService;
 
 /*
   Open Task Manager (Ctrl + Shift + Esc).
@@ -33,6 +34,7 @@ class CheckDraws extends Command
 
         $this->wonNumberGenerator = $wonNumberGenerator;
         $this->ticketService = $ticketService;
+    } // Brakujący nawias zamykający konstruktor
 
     public function handle()
     {
@@ -64,4 +66,5 @@ class CheckDraws extends Command
             }
         }
     }
+
 }

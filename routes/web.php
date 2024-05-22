@@ -30,9 +30,9 @@ Route::post('/tickets/prizes', [TicketsController::class, 'assignPrizes'])->name
 
 Route::match(['get', 'post'], '/test', [TestController::class, 'purchaseTicket']);
 
-Route::get('/lotteries/winners', [WinnersController::class, 'index']);
-Route::get('/lotteries/winning/{lotteryName}', [WinnersController::class, 'getWinningDrawsForLotteryName'])->name('draws.winning');
-Route::get('/lotteries/winning/{lotteryId}', [WinnersController::class, 'getWinningDrawsForLotteryName'])->name('draws.winning');
+Route::get('/lotteries/winners', [WinnersController::class, 'index'])->name('winners');
+// Route::get('/lotteries/winning/{lotteryName}', [WinnersController::class, 'getWinningDrawsForLotteryName'])->name('lotteries.winning');
+Route::get('/lotteries/winning/{lotteryId}', [WinnersController::class, 'showWinningDrawsForLotteryName'])->name('lotteries.winning');
 
 Route::controller(AuthController::class)->group(function() {
     Route::get('/register', 'register')->name('register');
