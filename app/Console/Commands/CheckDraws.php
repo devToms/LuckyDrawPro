@@ -31,7 +31,6 @@ class CheckDraws extends Command
       TicketService $ticketService
     ){
         parent::__construct();
-
         $this->wonNumberGenerator = $wonNumberGenerator;
         $this->ticketService = $ticketService;
     } // Brakujący nawias zamykający konstruktor
